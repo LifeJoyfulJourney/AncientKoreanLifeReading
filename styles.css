@@ -414,7 +414,15 @@ input[type="number"]:focus,
 
 .radio-card {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.65rem;
+  padding-left: 1rem;
+}
+
+.radio-card span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .radio-card input[type="radio"] {
