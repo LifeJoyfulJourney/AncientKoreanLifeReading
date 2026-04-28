@@ -1,6 +1,6 @@
 # Ancient Korean Life Reading
 
-Phase 4 static website for a premium Korean symbolic annual reading experience inspired by traditional Tojeong Bigyeol.
+Phase 5 static website for a premium Korean symbolic annual reading experience inspired by traditional Tojeong Bigyeol.
 
 This project currently includes:
 
@@ -15,9 +15,11 @@ This project currently includes:
 - Result preview system for calculated or selected browse-card readings
 - SEO metadata and structured data
 - Accessibility, mobile, and production polish
+- Upgraded Monthly Reading cards with current-month highlight
+- About, Privacy, and Contact trust pages
 - Premium locked cards without payment integration
 
-No backend, React, npm build step, or payment system is included in Phase 4.
+No backend, React, npm build step, or payment system is included in Phase 5.
 
 ## Run locally
 
@@ -62,14 +64,22 @@ http://localhost:8080
 
 - Launch polish complete.
 - Mobile optimized for small-screen form, result, and browse layouts.
-- SEO metadata, Open Graph, Twitter card, canonical placeholder, and Schema.org structured data added.
+- SEO metadata, Open Graph, Twitter card, canonical URL, and Schema.org structured data added.
 - Accessibility improved with stronger focus states, live status messaging, semantic trust sections, and reduced-motion support.
 - Production deployment ready for Cloudflare Pages as a static site.
 - Remaining recommendation: continue validating calculation logic against trusted Korean calendar and Tojeong Bigyeol references.
 
+## Phase 5 notes
+
+- Monthly Reading upgraded.
+- Current month auto-highlight added.
+- About / Privacy / Contact pages created.
+- AdSense readiness improved with privacy, contact, disclaimer, and trust signals.
+- Trust pages added for cultural context and user confidence.
+
 ## Sitemap notes
 
-This is currently a single-page static site. For launch, add a root-level `sitemap.xml` with the production URL after the final Cloudflare Pages domain is chosen, and replace the canonical placeholder in `index.html`.
+For launch, add a root-level `sitemap.xml` with the production URL and include the main page plus About, Privacy, and Contact pages.
 
 ## Next phase
 

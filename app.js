@@ -26,6 +26,20 @@ let renderBatchId;
 
 const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
 const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
 const HEAVENLY_STEM_NUMBER = { 甲: 9, 乙: 8, 丙: 7, 丁: 6, 戊: 5, 己: 9, 庚: 8, 辛: 7, 壬: 6, 癸: 5 };
 const TAESE_BRANCH_NUMBER = { 子: 11, 丑: 13, 寅: 10, 卯: 10, 辰: 13, 巳: 9, 午: 9, 未: 13, 申: 12, 酉: 12, 戌: 13, 亥: 11 };
 const WOLGEON_BRANCH_NUMBER = { 子: 9, 丑: 8, 寅: 7, 卯: 6, 辰: 5, 巳: 4, 午: 9, 未: 8, 申: 7, 酉: 6, 戌: 5, 亥: 4 };
@@ -303,7 +317,7 @@ function createCard(record) {
 
 function readingToText(record) {
   const months = Object.entries(record.monthly_en)
-    .map(([month, text]) => `${month}. ${text}`)
+    .map(([month, text]) => `${MONTH_NAMES[Number(month) - 1]}. ${text}`)
     .join("\n");
 
   return [
@@ -329,6 +343,41 @@ function readingToText(record) {
     "",
     record.disclaimer_en
   ].join("\n");
+}
+
+function getMonthlyText(record, month) {
+  return (
+    record.monthly_en?.[String(month)] ||
+    `Reflect on ${record.core_theme_en.toLowerCase()} with patience and clear intention.`
+  );
+}
+
+function renderMonthlyReading(record) {
+  const currentMonth = new Date().getMonth() + 1;
+  const monthlyList = document.querySelector("[data-reading-monthly]");
+
+  monthlyList.innerHTML = MONTH_NAMES.map((monthName, index) => {
+    const month = index + 1;
+    const isCurrent = month === currentMonth;
+    return `
+      <li class="monthly-card${isCurrent ? " is-current" : ""}" ${isCurrent ? 'data-current-month="true"' : ""}>
+        <span class="month-number">${String(month).padStart(2, "0")}</span>
+        <div>
+          <strong>${monthName}</strong>
+          <p>${getMonthlyText(record, month)}</p>
+        </div>
+      </li>
+    `;
+  }).join("");
+
+  if (window.matchMedia("(max-width: 720px)").matches) {
+    window.setTimeout(() => {
+      monthlyList.querySelector("[data-current-month='true']")?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }, 260);
+  }
 }
 
 function setText(selector, value) {
@@ -389,10 +438,7 @@ function openReading(record, calculationDetails = null) {
   setText("[data-reading-warning]", record.warning_en);
   setText("[data-reading-disclaimer]", record.disclaimer_en);
 
-  const monthlyList = document.querySelector("[data-reading-monthly]");
-  monthlyList.innerHTML = Object.entries(record.monthly_en)
-    .map(([month, text]) => `<li><span>${month}</span>${text}</li>`)
-    .join("");
+  renderMonthlyReading(record);
 
   document.querySelector("[data-reading-detail]").hidden = false;
   setCalculationDetails(calculationDetails);
