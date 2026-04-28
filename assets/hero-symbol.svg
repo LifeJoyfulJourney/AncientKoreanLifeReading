@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+  <title id="title">Moon, orbit, seal, manuscript, and ancient symbol</title>
+  <desc id="desc">A premium symbolic illustration for Ancient Korean Life Reading.</desc>
+  <defs>
+    <radialGradient id="moon" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#fff2c8"/>
+      <stop offset="48%" stop-color="#d7ad58"/>
+      <stop offset="100%" stop-color="#5b3f19"/>
+    </radialGradient>
+    <linearGradient id="paper" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5ead6"/>
+      <stop offset="100%" stop-color="#b99352"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="none"/>
+  <g filter="url(#softShadow)">
+    <circle cx="360" cy="360" r="246" fill="#080b14" stroke="#d7ad58" stroke-width="2"/>
+    <ellipse cx="360" cy="360" rx="292" ry="112" fill="none" stroke="#d7ad58" stroke-width="2" opacity="0.55" transform="rotate(-21 360 360)"/>
+    <ellipse cx="360" cy="360" rx="260" ry="96" fill="none" stroke="#f1d38a" stroke-width="1.2" opacity="0.42" transform="rotate(28 360 360)"/>
+    <circle cx="502" cy="222" r="70" fill="url(#moon)"/>
+    <circle cx="526" cy="202" r="70" fill="#080b14" opacity="0.86"/>
+    <path d="M225 226c72-30 173-30 246 0v260c-73-30-174-30-246 0V226Z" fill="url(#paper)" opacity="0.95"/>
+    <path d="M246 276h202M246 318h170M246 360h202M246 402h146" stroke="#5b3f19" stroke-width="8" stroke-linecap="round" opacity="0.68"/>
+    <circle cx="360" cy="360" r="118" fill="#0d111e" stroke="#d7ad58" stroke-width="3"/>
+    <circle cx="360" cy="360" r="88" fill="none" stroke="#f1d38a" stroke-width="1.5" stroke-dasharray="6 9"/>
+    <path d="M360 278c-22 38-45 62-73 82 30 19 53 44 73 82 21-38 44-63 74-82-29-20-52-44-74-82Z" fill="none" stroke="#f1d38a" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M360 314v92M314 360h92" stroke="#d7ad58" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="146" cy="376" r="10" fill="#f1d38a"/>
+    <circle cx="602" cy="401" r="8" fill="#d7ad58"/>
+    <circle cx="412" cy="102" r="5" fill="#f1d38a"/>
+    <circle cx="242" cy="612" r="6" fill="#d7ad58"/>
+  </g>
+</svg>

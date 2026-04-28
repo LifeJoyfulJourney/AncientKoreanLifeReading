@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore Tojeong Bigyeol, a traditional Korean fortune reading system, through one of 144 ancient Korean life symbols for yearly reflection and direction."
+    />
+    <meta name="theme-color" content="#05070d" />
+    <meta
+      name="keywords"
+      content="Tojeong Bigyeol, Korean fortune reading, Korean zodiac reading, Ancient Korean life reading, Traditional Korean fortune"
+    />
+    <link rel="canonical" href="https://example.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ancient Korean Life Reading | Tojeong Bigyeol" />
+    <meta
+      property="og:description"
+      content="Reveal one of 144 traditional Korean symbolic readings for reflection, timing, and life direction."
+    />
+    <meta property="og:image" content="assets/hero-symbol.svg" />
+    <meta property="og:url" content="https://example.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ancient Korean Life Reading" />
+    <meta
+      name="twitter:description"
+      content="A premium English presentation of Tojeong Bigyeol, the traditional Korean annual symbolic reading system."
+    />
+    <meta name="twitter:image" content="assets/hero-symbol.svg" />
+    <title>Ancient Korean Life Reading | Tojeong Bigyeol Korean Fortune Reading</title>
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Ancient Korean Life Reading",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "description": "A static web application presenting Tojeong Bigyeol, a traditional Korean annual symbolic reading system, in modern English.",
+        "url": "https://example.com/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header" aria-label="Primary navigation">
+        <a class="brand" href="#hero" aria-label="Ancient Korean Life Reading home">
+          <img src="assets/logo.svg" alt="" width="44" height="44" />
+          <span>Ancient Korean Life Reading</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main menu">
+          <a href="#reading-form">Reading</a>
+          <a href="#tojeong">Tojeong</a>
+          <a href="#trust">Culture</a>
+          <a href="#symbols">Symbols</a>
+          <a href="#premium">Premium</a>
+        </nav>
+      </header>
+
+      <main>
+        <section id="hero" class="hero section-panel">
+          <div class="hero-content reveal">
+            <p class="eyebrow">Traditional Korean symbolic guidance</p>
+            <h1>Ancient Korean Life Reading</h1>
+            <p class="hero-subtitle">Discover your year through a traditional Korean symbolic system.</p>
+            <p class="hero-intro">
+              Reveal one of 144 timeless life patterns from Tojeong Bigyeol, a traditional Korean fortune
+              reading used for reflection, timing, and direction.
+            </p>
+            <div class="button-row">
+              <a class="button button-primary" href="#reading-form">Reveal My Reading</a>
+              <a class="button button-secondary" href="#symbols">Browse 144 Symbols</a>
+            </div>
+          </div>
+          <div class="hero-art reveal" aria-hidden="true">
+            <img src="assets/hero-symbol.svg" alt="" width="720" height="720" />
+          </div>
+        </section>
+
+        <section class="curiosity section-panel" aria-labelledby="curiosity-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">A question for the year ahead</p>
+            <h2 id="curiosity-title">What is your Korean year code?</h2>
+          </div>
+          <div class="curiosity-grid">
+            <article class="text-tile reveal">
+              <h3>What ancient Korean symbol describes your year?</h3>
+              <p>Each symbolic reading carries a distinct mood, rhythm, and pattern for reflection.</p>
+            </article>
+            <article class="text-tile reveal">
+              <h3>Reveal one of 144 timeless life patterns.</h3>
+              <p>Begin with your birth date and target year, then reveal a structured cultural reading.</p>
+            </article>
+            <article class="text-tile reveal">
+              <h3>Reflect on timing, direction, and relationships.</h3>
+              <p>Use the reading as a refined lens for contemplation, not as a fixed prediction.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="reading-form" class="reading-section section-panel" aria-labelledby="form-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Begin the reading</p>
+            <h2 id="form-title">Enter your birth details</h2>
+          </div>
+          <form class="reading-form reveal" aria-describedby="form-note">
+            <div class="form-grid">
+              <fieldset class="calendar-field">
+                <legend>Calendar Type</legend>
+                <label class="radio-card">
+                  <input type="radio" name="calendarType" value="solar" checked />
+                  <span>Solar</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="calendarType" value="lunar" />
+                  <span>Lunar</span>
+                </label>
+              </fieldset>
+
+              <label>
+                <span>Birth Year</span>
+                <input type="number" name="birthYear" min="1900" max="2050" placeholder="1990" inputmode="numeric" required />
+              </label>
+              <label>
+                <span>Birth Month</span>
+                <input type="number" name="birthMonth" min="1" max="12" placeholder="6" inputmode="numeric" required />
+              </label>
+              <label>
+                <span>Birth Day</span>
+                <input type="number" name="birthDay" min="1" max="31" placeholder="15" inputmode="numeric" required />
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="leapMonth" />
+                <span>Leap Month</span>
+              </label>
+              <label>
+                <span>Target Year</span>
+                <input type="number" name="targetYear" min="1900" max="2050" value="2026" inputmode="numeric" required />
+              </label>
+            </div>
+            <p id="form-note">
+              Solar dates are converted offline to Korean lunar dates. For rare conversion issues, enter your
+              lunar birthday directly.
+            </p>
+            <button class="button button-primary form-submit" type="submit">Reveal My Reading</button>
+          </form>
+        </section>
+
+        <section id="result" class="result-section section-panel" aria-labelledby="result-title">
+          <div class="result-card reveal" aria-live="polite">
+            <div class="result-orbit" aria-hidden="true"></div>
+            <p class="eyebrow result-eyebrow">Traditional symbolic result</p>
+            <h2 id="result-title">Your Symbolic Reading</h2>
+            <dl>
+              <div>
+                <dt>Korean Destiny Code</dt>
+                <dd data-result-code>---</dd>
+              </div>
+              <div>
+                <dt>Symbol</dt>
+                <dd data-result-symbol>Awaiting Selection</dd>
+              </div>
+              <div>
+                <dt>Hanja Original</dt>
+                <dd data-result-hanja>---</dd>
+              </div>
+              <div>
+                <dt>Korean Reading</dt>
+                <dd data-result-korean-reading>---</dd>
+              </div>
+              <div>
+                <dt>Korean Meaning</dt>
+                <dd data-result-korean-meaning>---</dd>
+              </div>
+              <div>
+                <dt>Literal English</dt>
+                <dd data-result-literal>---</dd>
+              </div>
+              <div>
+                <dt>Theme</dt>
+                <dd data-result-theme>Enter your birth details or choose a symbol below to preview a reading.</dd>
+              </div>
+            </dl>
+            <p class="form-message" data-form-message role="status" aria-live="polite"></p>
+            <div class="reading-detail" data-reading-detail hidden>
+              <p data-reading-summary></p>
+              <div class="reading-columns">
+                <article>
+                  <h3>Full Reading</h3>
+                  <p data-reading-full></p>
+                </article>
+                <article>
+                  <h3>Career</h3>
+                  <p data-reading-career></p>
+                </article>
+                <article>
+                  <h3>Money</h3>
+                  <p data-reading-money></p>
+                </article>
+                <article>
+                  <h3>Love</h3>
+                  <p data-reading-love></p>
+                </article>
+                <article>
+                  <h3>Health</h3>
+                  <p data-reading-health></p>
+                </article>
+                <article>
+                  <h3>Warning</h3>
+                  <p data-reading-warning></p>
+                </article>
+              </div>
+              <div>
+                <h3>Monthly Guide</h3>
+                <ol class="monthly-list" data-reading-monthly></ol>
+              </div>
+              <p class="reading-disclaimer" data-reading-disclaimer></p>
+              <details class="calculation-details" data-calculation-details hidden>
+                <summary>Calculation Details</summary>
+                <dl>
+                  <div><dt>Input calendar type</dt><dd data-calc-calendar>---</dd></div>
+                  <div><dt>Original entered birth date</dt><dd data-calc-original>---</dd></div>
+                  <div><dt>Converted lunar birth date</dt><dd data-calc-lunar>---</dd></div>
+                  <div><dt>Leap lunar month status</dt><dd data-calc-leap>---</dd></div>
+                  <div><dt>Target year</dt><dd data-calc-target-year>---</dd></div>
+                  <div><dt>Korean age</dt><dd data-calc-age>---</dd></div>
+                  <div><dt>Target year ganji</dt><dd data-calc-year-ganji>---</dd></div>
+                  <div><dt>Target month ganji</dt><dd data-calc-month-ganji>---</dd></div>
+                  <div><dt>Target day ganji</dt><dd data-calc-day-ganji>---</dd></div>
+                  <div><dt>TaeSe number</dt><dd data-calc-taese>---</dd></div>
+                  <div><dt>Wolgeon number</dt><dd data-calc-wolgeon>---</dd></div>
+                  <div><dt>Iljin number</dt><dd data-calc-iljin>---</dd></div>
+                  <div><dt>Upper gua</dt><dd data-calc-upper>---</dd></div>
+                  <div><dt>Middle gua</dt><dd data-calc-middle>---</dd></div>
+                  <div><dt>Lower gua</dt><dd data-calc-lower>---</dd></div>
+                  <div><dt>Final gua code</dt><dd data-calc-code>---</dd></div>
+                </dl>
+              </details>
+              <div class="result-actions">
+                <button class="button button-secondary" type="button" data-copy-reading>Copy My Reading</button>
+                <button class="button button-secondary" type="button" data-try-another>Try Another Symbol</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tojeong" class="tojeong section-panel" aria-labelledby="tojeong-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Cultural origin</p>
+            <h2 id="tojeong-title">What is Tojeong Bigyeol?</h2>
+          </div>
+          <div class="prose reveal">
+            <p>
+              Tojeong Bigyeol is a traditional Korean annual reading system associated with the
+              Joseon-era scholar Yi Ji-ham, known as Tojeong.
+            </p>
+            <p>
+              Historically, people consulted it near the beginning of the year to reflect on fortune,
+              timing, relationships, and life direction.
+            </p>
+            <p>
+              This website presents it as symbolic cultural guidance rather than scientific prediction.
+            </p>
+          </div>
+        </section>
+
+        <section id="trust" class="trust section-panel" aria-labelledby="trust-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Respectful cultural guidance</p>
+            <h2 id="trust-title">Why people return each year</h2>
+          </div>
+          <div class="trust-grid">
+            <article class="text-tile reveal">
+              <h3>Annual reflection</h3>
+              <p>
+                Many Koreans revisit Tojeong Bigyeol yearly as a reflective tradition to think about timing,
+                priorities, and direction.
+              </p>
+            </article>
+            <article class="text-tile reveal">
+              <h3>Cultural note</h3>
+              <p>
+                This site presents a historic Korean symbolic tradition in modern English form with a calm,
+                respectful interpretation style.
+              </p>
+            </article>
+            <article class="text-tile reveal">
+              <h3>How accurate is it?</h3>
+              <p>
+                This is a symbolic interpretive system, not scientific certainty. Use it for reflection,
+                cultural interest, and thoughtful conversation.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="how-it-works section-panel" aria-labelledby="steps-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">The reading path</p>
+            <h2 id="steps-title">How it works</h2>
+          </div>
+          <div class="steps-grid">
+            <article class="step-card reveal">
+              <span>01</span>
+              <h3>Enter your birth date</h3>
+            </article>
+            <article class="step-card reveal">
+              <span>02</span>
+              <h3>A traditional code is calculated</h3>
+            </article>
+            <article class="step-card reveal">
+              <span>03</span>
+              <h3>One of 144 symbolic readings is revealed</h3>
+            </article>
+            <article class="step-card reveal">
+              <span>04</span>
+              <h3>Explore guidance for the year ahead</h3>
+            </article>
+          </div>
+        </section>
+
+        <section id="symbols" class="symbols section-panel" aria-labelledby="symbols-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Browse all 144</p>
+            <h2 id="symbols-title">Browse symbols</h2>
+            <p class="section-copy">
+              Search by code, Hanja, Korean reading, English title, theme, or tag. Select any symbol to preview
+              its full reading.
+            </p>
+          </div>
+          <div class="symbol-tools reveal">
+            <label for="symbol-search">Search symbols</label>
+            <input
+              id="symbol-search"
+              class="symbol-search"
+              type="search"
+              placeholder="Try 111, dragon, spring, 잠룡득주, or renewal"
+              autocomplete="off"
+            />
+            <p><span data-symbol-count>0</span> symbols shown</p>
+          </div>
+          <div class="symbol-grid" data-symbol-grid aria-live="polite">
+            <p class="loading-message">Loading symbolic readings...</p>
+          </div>
+        </section>
+
+        <section id="premium" class="premium section-panel" aria-labelledby="premium-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Deeper annual guidance</p>
+            <h2 id="premium-title">Premium reading</h2>
+          </div>
+          <div class="premium-grid">
+            <article class="premium-card reveal"><span>Locked</span><h3>Full Year Report</h3></article>
+            <article class="premium-card reveal"><span>Locked</span><h3>Love & Relationship</h3></article>
+            <article class="premium-card reveal"><span>Locked</span><h3>Career & Money</h3></article>
+            <article class="premium-card reveal"><span>Locked</span><h3>Monthly Timing Guide</h3></article>
+            <article class="premium-card reveal"><span>Locked</span><h3>PDF Report</h3></article>
+          </div>
+          <button class="button button-primary premium-button reveal" type="button">Unlock Full Reading</button>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <img src="assets/logo.svg" alt="" width="48" height="48" />
+        <h2>Ancient Korean Life Reading</h2>
+        <p>
+          This website provides symbolic guidance based on a traditional Korean cultural system. It is
+          intended for reflection, cultural interest, and entertainment only.
+        </p>
+      </footer>
+      <button class="scroll-top" type="button" aria-label="Scroll to top" data-scroll-top>Top</button>
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>

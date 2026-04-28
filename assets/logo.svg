@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Ancient Korean Life Reading logo</title>
+  <desc id="desc">A circular gold seal with a moon and calendar lines.</desc>
+  <defs>
+    <radialGradient id="sealGlow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#f6dc99"/>
+      <stop offset="52%" stop-color="#d7ad58"/>
+      <stop offset="100%" stop-color="#7b5a23"/>
+    </radialGradient>
+  </defs>
+  <circle cx="80" cy="80" r="72" fill="#070912" stroke="url(#sealGlow)" stroke-width="4"/>
+  <circle cx="80" cy="80" r="58" fill="none" stroke="#d7ad58" stroke-width="1.6" stroke-dasharray="4 7"/>
+  <circle cx="80" cy="80" r="43" fill="none" stroke="#f1d38a" stroke-width="1.2"/>
+  <path d="M97 45a30 30 0 1 0 0 70 34 34 0 1 1 0-70Z" fill="url(#sealGlow)"/>
+  <path d="M54 96h52M59 108h42M67 120h26" stroke="#f1d38a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M80 24v12M80 124v12M24 80h12M124 80h12" stroke="#d7ad58" stroke-width="2" stroke-linecap="round"/>
+  <path d="M47 47l8 8M113 47l-8 8M47 113l8-8M113 113l-8-8" stroke="#8d692f" stroke-width="2" stroke-linecap="round"/>
+</svg>
