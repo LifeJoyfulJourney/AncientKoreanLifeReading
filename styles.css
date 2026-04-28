@@ -417,6 +417,39 @@ input[type="number"]:focus,
   gap: 0.5rem;
 }
 
+.radio-card input[type="radio"] {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1.5px solid rgba(241, 211, 138, 0.62);
+  border-radius: 50%;
+  background: rgba(5, 7, 13, 0.86);
+  cursor: pointer;
+}
+
+.radio-card input[type="radio"]::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  transform: scale(0);
+  transition: transform 140ms ease;
+}
+
+.radio-card input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.radio-card input[type="radio"]:focus-visible {
+  outline: 3px solid rgba(241, 211, 138, 0.72);
+  outline-offset: 3px;
+}
+
 .checkbox-label {
   align-self: end;
   display: flex;
