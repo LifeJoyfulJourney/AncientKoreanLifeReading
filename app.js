@@ -89,6 +89,7 @@ function formatDateParts({ year, month, day }) {
 function showMessage(message, type = "info") {
   formMessage.textContent = message;
   formMessage.dataset.type = type;
+  formMessage.hidden = !message;
 }
 
 function getCurrentLocalYear() {
@@ -601,7 +602,7 @@ readingForm.addEventListener("submit", (event) => {
       if (!record) throw new Error(`The generated code ${calculation.finalCode} is not in the 144-symbol database.`);
 
       storageSet("aklr:lastTargetYear", String(calculation.targetYear));
-      showMessage(`Calculated code ${calculation.finalCode}.`, "success");
+      showMessage("");
       openReading(record, calculation);
     } catch (error) {
       showMessage(error.message, "error");
