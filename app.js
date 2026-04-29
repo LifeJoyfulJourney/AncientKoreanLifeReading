@@ -15,6 +15,7 @@ const birthMonthInput = document.querySelector('input[name="birthMonth"]');
 const birthDayInput = document.querySelector('input[name="birthDay"]');
 const leapMonthInput = document.querySelector('input[name="leapMonth"]');
 const targetYearInput = document.querySelector('input[name="targetYear"]');
+const targetYearError = document.querySelector("[data-target-year-error]");
 let tojeongData = [];
 let selectedReading = null;
 let observer;
@@ -88,6 +89,37 @@ function formatDateParts({ year, month, day }) {
 function showMessage(message, type = "info") {
   formMessage.textContent = message;
   formMessage.dataset.type = type;
+}
+
+function getCurrentLocalYear() {
+  return new Date().getFullYear();
+}
+
+function setTargetYearBounds() {
+  const currentYear = getCurrentLocalYear();
+  targetYearInput.min = String(currentYear);
+  targetYearInput.placeholder = String(currentYear);
+}
+
+function setTargetYearError(message = "") {
+  targetYearInput.setCustomValidity(message);
+  if (!targetYearError) return;
+
+  targetYearError.textContent = message;
+  targetYearError.hidden = !message;
+}
+
+function validateTargetYear({ showError = false } = {}) {
+  const targetYear = Number(targetYearInput.value);
+  const isPastYear = Number.isInteger(targetYear) && targetYear < getCurrentLocalYear();
+
+  if (isPastYear) {
+    if (showError) setTargetYearError("Please enter the current year or a future year.");
+    return false;
+  }
+
+  setTargetYearError();
+  return true;
 }
 
 function storageGet(key) {
@@ -545,6 +577,11 @@ navToggle.addEventListener("click", () => {
 
 readingForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (!validateTargetYear({ showError: true })) {
+    targetYearInput.focus({ preventScroll: true });
+    return;
+  }
+
   showMessage("Calculating your traditional symbolic code...", "info");
   readingForm.classList.add("is-calculating");
 
@@ -614,7 +651,11 @@ calendarInputs.forEach((input) => input.addEventListener("change", updateDayLimi
   input.addEventListener("input", updateDayLimit);
   input.addEventListener("change", updateDayLimit);
 });
-targetYearInput.addEventListener("change", () => storageSet("aklr:lastTargetYear", targetYearInput.value));
+targetYearInput.addEventListener("input", () => validateTargetYear({ showError: true }));
+targetYearInput.addEventListener("change", () => {
+  validateTargetYear({ showError: true });
+  storageSet("aklr:lastTargetYear", targetYearInput.value);
+});
 scrollTopButton.addEventListener("click", () => scrollToTarget("#hero"));
 window.addEventListener("scroll", setActiveNav, { passive: true });
 
@@ -687,7 +728,10 @@ window.tojeongPhase3SelfTest = function tojeongPhase3SelfTest() {
 };
 
 observeRevealItems(document.querySelectorAll(".reveal"));
+setTargetYearBounds();
 targetYearInput.value = storageGet("aklr:lastTargetYear") || targetYearInput.value;
+if (Number(targetYearInput.value) < getCurrentLocalYear()) targetYearInput.value = String(getCurrentLocalYear());
+validateTargetYear();
 updateDayLimit();
 setActiveNav();
 loadTojeongData();

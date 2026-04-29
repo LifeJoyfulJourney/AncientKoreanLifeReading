@@ -398,6 +398,13 @@ input[type="number"]:focus,
   box-shadow: 0 0 0 3px rgba(215, 173, 88, 0.13);
 }
 
+.field-error {
+  color: #f1a98f;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 .radio-card,
 .checkbox-label {
   min-height: 50px;

@@ -147,7 +147,17 @@
               </label>
               <label>
                 <span>Target Year</span>
-                <input type="number" name="targetYear" min="1900" max="2050" value="2026" inputmode="numeric" required />
+                <input
+                  type="number"
+                  name="targetYear"
+                  min="1900"
+                  max="2050"
+                  value="2026"
+                  inputmode="numeric"
+                  aria-describedby="target-year-error"
+                  required
+                />
+                <small id="target-year-error" class="field-error" data-target-year-error aria-live="polite" hidden></small>
               </label>
             </div>
             <p id="form-note">
