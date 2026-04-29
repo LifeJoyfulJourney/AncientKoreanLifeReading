@@ -647,6 +647,14 @@ input[type="number"]:focus,
   line-height: 1.1;
 }
 
+.monthly-gregorian-hint {
+  margin: 0.25rem 0 0;
+  color: rgba(241, 211, 138, 0.78);
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
 .monthly-detail-list {
   display: grid;
   gap: 0.65rem;

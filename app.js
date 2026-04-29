@@ -35,6 +35,20 @@ const MONTH_NAMES = [
   "November",
   "December"
 ];
+const LUNAR_GREGORIAN_HINTS = [
+  "Usually falls around February",
+  "Usually falls around March",
+  "Usually falls around April",
+  "Usually falls around May",
+  "Typically overlaps June-July",
+  "Typically overlaps July-August",
+  "Typically overlaps August-September",
+  "Typically overlaps September-October",
+  "Typically overlaps October-November",
+  "Typically overlaps November-December",
+  "Often occurs near December-January",
+  "Often occurs near January-February"
+];
 const HEAVENLY_STEM_NUMBER = { 甲: 9, 乙: 8, 丙: 7, 丁: 6, 戊: 5, 己: 9, 庚: 8, 辛: 7, 壬: 6, 癸: 5 };
 const TAESE_BRANCH_NUMBER = { 子: 11, 丑: 13, 寅: 10, 卯: 10, 辰: 13, 巳: 9, 午: 9, 未: 13, 申: 12, 酉: 12, 戌: 13, 亥: 11 };
 const WOLGEON_BRANCH_NUMBER = { 子: 9, 丑: 8, 寅: 7, 卯: 6, 辰: 5, 巳: 4, 午: 9, 未: 8, 申: 7, 酉: 6, 戌: 5, 亥: 4 };
@@ -352,22 +366,34 @@ function buildMonthlyDetail(record, month, monthName) {
   };
 }
 
-function getVisibleMonthlyRange(targetYear) {
+function getCurrentLunarDate() {
   const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
+  return solarToLunar(today.getFullYear(), today.getMonth() + 1, today.getDate());
+}
 
-  if (targetYear < currentYear) {
+function getVisibleMonthlyRange(targetYear) {
+  const currentLunarDate = getCurrentLunarDate();
+  if (!currentLunarDate) {
     return {
       months: [],
+      currentLunarDate,
+      message: "The current lunar date could not be determined. Please try again later."
+    };
+  }
+
+  if (targetYear < currentLunarDate.year) {
+    return {
+      months: [],
+      currentLunarDate,
       message: "This reading is designed for future reflection. Please choose the current year or a future year."
     };
   }
 
-  if (targetYear === currentYear) {
-    const months = MONTH_NAMES.map((_, index) => index + 1).filter((month) => month > currentMonth);
+  if (targetYear === currentLunarDate.year) {
+    const months = MONTH_NAMES.map((_, index) => index + 1).filter((month) => month > currentLunarDate.month);
     return {
       months,
+      currentLunarDate,
       message: months.length
         ? ""
         : "This year is nearly complete. Choose next year to reveal a full year of future monthly guidance."
@@ -376,6 +402,7 @@ function getVisibleMonthlyRange(targetYear) {
 
   return {
     months: MONTH_NAMES.map((_, index) => index + 1),
+    currentLunarDate,
     message: ""
   };
 }
@@ -390,7 +417,7 @@ function renderMonthlyReading(record, targetYear) {
   }
 
   monthlyList.innerHTML = range.months.map((month, index) => {
-    const monthName = MONTH_NAMES[month - 1];
+    const monthName = `Lunar Month ${month}`;
     const details = buildMonthlyDetail(record, month, monthName);
     const isFirstFuture = index === 0;
     return `
@@ -398,6 +425,7 @@ function renderMonthlyReading(record, targetYear) {
         <span class="month-number">${String(month).padStart(2, "0")}</span>
         <div>
           <strong>${monthName}</strong>
+          <p class="monthly-gregorian-hint">${LUNAR_GREGORIAN_HINTS[month - 1]}</p>
           <dl class="monthly-detail-list">
             <div><dt>Overall</dt><dd>${details.overall}</dd></div>
             <div><dt>Career</dt><dd>${details.career}</dd></div>
@@ -463,7 +491,7 @@ function openReading(record, calculationDetails = null) {
   setText("[data-reading-warning]", record.warning_en);
   setText("[data-reading-disclaimer]", record.disclaimer_en);
 
-  renderMonthlyReading(record, calculationDetails?.targetYear || Number(targetYearInput.value) || new Date().getFullYear());
+  renderMonthlyReading(record, calculationDetails?.targetYear || Number(targetYearInput.value) || getCurrentLunarDate()?.year);
 
   document.querySelector("[data-reading-detail]").hidden = false;
   setCalculationDetails(calculationDetails);
