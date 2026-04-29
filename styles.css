@@ -289,7 +289,6 @@ h3 {
 
 .curiosity-grid,
 .trust-grid,
-.steps-grid,
 .symbol-grid,
 .premium-grid {
   display: grid;
@@ -305,7 +304,6 @@ h3 {
 }
 
 .text-tile,
-.step-card,
 .symbol-card,
 .premium-card,
 .reading-form,
@@ -317,7 +315,6 @@ h3 {
 }
 
 .text-tile,
-.step-card,
 .symbol-card,
 .premium-card {
   min-height: 180px;
@@ -326,7 +323,6 @@ h3 {
 }
 
 .text-tile h3,
-.step-card h3,
 .symbol-card h3,
 .premium-card h3 {
   margin-top: 0.75rem;
@@ -748,11 +744,6 @@ input[type="number"]:focus,
   margin-top: 1rem;
 }
 
-.steps-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.step-card span,
 .symbol-card span,
 .premium-card span {
   color: var(--gold-light);
@@ -1011,7 +1002,6 @@ input[type="number"]:focus,
   .hero,
   .curiosity-grid,
   .trust-grid,
-  .steps-grid,
   .symbol-grid,
   .premium-grid,
   .form-grid {
@@ -1074,7 +1064,6 @@ input[type="number"]:focus,
   .hero,
   .curiosity-grid,
   .trust-grid,
-  .steps-grid,
   .symbol-grid,
   .premium-grid,
   .form-grid {
@@ -1148,7 +1137,6 @@ input[type="number"]:focus,
   }
 
   .text-tile,
-  .step-card,
   .symbol-card,
   .premium-card {
     min-height: auto;
