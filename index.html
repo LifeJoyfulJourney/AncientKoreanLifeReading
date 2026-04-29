@@ -65,7 +65,6 @@
           <a href="#reading-form">Reading</a>
           <a href="#tojeong">Tojeong</a>
           <a href="#trust">Culture</a>
-          <a href="#symbols">Symbols</a>
           <a href="#premium">Premium</a>
           <a href="/about.html">About</a>
         </nav>
@@ -83,7 +82,6 @@
             </p>
             <div class="button-row">
               <a class="button button-primary" href="#reading-form">Reveal My Reading</a>
-              <a class="button button-secondary" href="#symbols">Browse 144 Symbols</a>
             </div>
           </div>
           <div class="hero-art reveal" aria-hidden="true">
@@ -192,7 +190,7 @@
               </div>
               <div>
                 <dt>Theme</dt>
-                <dd data-result-theme>Enter your birth details or choose a symbol below to preview a reading.</dd>
+                <dd data-result-theme>Enter your birth details to reveal your personal reading.</dd>
               </div>
             </dl>
             <p class="form-message" data-form-message role="status" aria-live="polite"></p>
@@ -225,8 +223,8 @@
                 </article>
               </div>
               <div>
-                <h3>Monthly Reading</h3>
-                <p class="monthly-subtitle">A month-by-month reflection for your year ahead.</p>
+                <h3>Detailed Upcoming Monthly Reading</h3>
+                <p class="monthly-subtitle">A deeper month-by-month reflection for the months still ahead.</p>
                 <ol class="monthly-list" data-reading-monthly></ol>
               </div>
               <p class="reading-disclaimer" data-reading-disclaimer></p>
@@ -253,7 +251,7 @@
               </details>
               <div class="result-actions">
                 <button class="button button-secondary" type="button" data-copy-reading>Copy My Reading</button>
-                <button class="button button-secondary" type="button" data-try-another>Try Another Symbol</button>
+                <button class="button button-secondary" type="button" data-try-another>Try Another Reading</button>
               </div>
             </div>
           </div>
@@ -331,31 +329,6 @@
               <span>04</span>
               <h3>Explore guidance for the year ahead</h3>
             </article>
-          </div>
-        </section>
-
-        <section id="symbols" class="symbols section-panel" aria-labelledby="symbols-title">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Browse all 144</p>
-            <h2 id="symbols-title">Browse symbols</h2>
-            <p class="section-copy">
-              Search by code, Hanja, Korean reading, English title, theme, or tag. Select any symbol to preview
-              its full reading.
-            </p>
-          </div>
-          <div class="symbol-tools reveal">
-            <label for="symbol-search">Search symbols</label>
-            <input
-              id="symbol-search"
-              class="symbol-search"
-              type="search"
-              placeholder="Try 111, dragon, spring, 잠룡득주, or renewal"
-              autocomplete="off"
-            />
-            <p><span data-symbol-count>0</span> symbols shown</p>
-          </div>
-          <div class="symbol-grid" data-symbol-grid aria-live="polite">
-            <p class="loading-message">Loading symbolic readings...</p>
           </div>
         </section>
 

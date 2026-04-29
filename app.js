@@ -3,9 +3,6 @@ const siteNav = document.querySelector(".site-nav");
 const readingForm = document.querySelector(".reading-form");
 const premiumButton = document.querySelector(".premium-button");
 const premiumCards = document.querySelectorAll(".premium-card");
-const symbolGrid = document.querySelector("[data-symbol-grid]");
-const symbolSearch = document.querySelector("#symbol-search");
-const symbolCount = document.querySelector("[data-symbol-count]");
 const resultCard = document.querySelector(".result-card");
 const copyReadingButton = document.querySelector("[data-copy-reading]");
 const tryAnotherButton = document.querySelector("[data-try-another]");
@@ -21,8 +18,6 @@ const targetYearInput = document.querySelector('input[name="targetYear"]');
 let tojeongData = [];
 let selectedReading = null;
 let observer;
-let searchDebounceId;
-let renderBatchId;
 
 const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
 const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
@@ -297,24 +292,6 @@ function updateDayLimit() {
   }
 }
 
-function createCard(record) {
-  const card = document.createElement("article");
-  card.className = "symbol-card reveal";
-  card.tabIndex = 0;
-  card.setAttribute("role", "button");
-  card.setAttribute("aria-label", `Open reading ${record.code}, ${record.symbol_title_en}`);
-  card.dataset.code = record.code;
-  card.innerHTML = `
-    <span>${record.code}</span>
-    <h3>${record.symbol_title_en}</h3>
-    <p class="hanja">${record.hanja}</p>
-    <p>${record.core_theme_en}</p>
-    <div class="tag-row">${record.tags.map((tag) => `<small>${tag}</small>`).join("")}</div>
-  `;
-
-  return card;
-}
-
 function readingToText(record) {
   const months = Object.entries(record.monthly_en)
     .map(([month, text]) => `${MONTH_NAMES[Number(month) - 1]}. ${text}`)
@@ -352,32 +329,87 @@ function getMonthlyText(record, month) {
   );
 }
 
-function renderMonthlyReading(record) {
-  const currentMonth = new Date().getMonth() + 1;
-  const monthlyList = document.querySelector("[data-reading-monthly]");
+function softenReadingText(text) {
+  return String(text || "")
+    .replace(/\bwill\b/gi, "may")
+    .replace(/\bmust\b/gi, "may need to")
+    .replace(/\bguarantees?\b/gi, "suggests")
+    .trim();
+}
 
-  monthlyList.innerHTML = MONTH_NAMES.map((monthName, index) => {
-    const month = index + 1;
-    const isCurrent = month === currentMonth;
+function buildMonthlyDetail(record, month, monthName) {
+  const monthlyText = softenReadingText(getMonthlyText(record, month));
+  const tone = record.fortune_tone ? `The ${record.fortune_tone.toLowerCase()} tone suggests a measured pace.` : "";
+  const tag = Array.isArray(record.tags) && record.tags.length ? record.tags[(month - 1) % record.tags.length] : "reflection";
+
+  return {
+    overall: `${monthlyText} ${tone}`.trim(),
+    career: `${monthName} may bring the career theme into focus: ${softenReadingText(record.career_en)}`,
+    money: `Financially, this month invites careful pacing. ${softenReadingText(record.money_en)}`,
+    love: `In relationships, ${monthName} could favor patient attention. ${softenReadingText(record.love_en)}`,
+    health: `For wellbeing, be mindful of steady routines. ${softenReadingText(record.health_en)}`,
+    advice: `Use ${tag.toLowerCase()} as a practical lens this month. ${softenReadingText(record.warning_en)}`
+  };
+}
+
+function getVisibleMonthlyRange(targetYear) {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth() + 1;
+
+  if (targetYear < currentYear) {
+    return {
+      months: [],
+      message: "This reading is designed for future reflection. Please choose the current year or a future year."
+    };
+  }
+
+  if (targetYear === currentYear) {
+    const months = MONTH_NAMES.map((_, index) => index + 1).filter((month) => month > currentMonth);
+    return {
+      months,
+      message: months.length
+        ? ""
+        : "This year is nearly complete. Choose next year to reveal a full year of future monthly guidance."
+    };
+  }
+
+  return {
+    months: MONTH_NAMES.map((_, index) => index + 1),
+    message: ""
+  };
+}
+
+function renderMonthlyReading(record, targetYear) {
+  const monthlyList = document.querySelector("[data-reading-monthly]");
+  const range = getVisibleMonthlyRange(targetYear);
+
+  if (range.message) {
+    monthlyList.innerHTML = `<li class="monthly-message">${range.message}</li>`;
+    return;
+  }
+
+  monthlyList.innerHTML = range.months.map((month, index) => {
+    const monthName = MONTH_NAMES[month - 1];
+    const details = buildMonthlyDetail(record, month, monthName);
+    const isFirstFuture = index === 0;
     return `
-      <li class="monthly-card${isCurrent ? " is-current" : ""}" ${isCurrent ? 'data-current-month="true"' : ""}>
+      <li class="monthly-card${isFirstFuture ? " is-next" : ""}">
         <span class="month-number">${String(month).padStart(2, "0")}</span>
         <div>
           <strong>${monthName}</strong>
-          <p>${getMonthlyText(record, month)}</p>
+          <dl class="monthly-detail-list">
+            <div><dt>Overall</dt><dd>${details.overall}</dd></div>
+            <div><dt>Career</dt><dd>${details.career}</dd></div>
+            <div><dt>Money</dt><dd>${details.money}</dd></div>
+            <div><dt>Love</dt><dd>${details.love}</dd></div>
+            <div><dt>Health</dt><dd>${details.health}</dd></div>
+            <div><dt>Advice</dt><dd>${details.advice}</dd></div>
+          </dl>
         </div>
       </li>
     `;
   }).join("");
-
-  if (window.matchMedia("(max-width: 720px)").matches) {
-    window.setTimeout(() => {
-      monthlyList.querySelector("[data-current-month='true']")?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
-      });
-    }, 260);
-  }
 }
 
 function setText(selector, value) {
@@ -415,13 +447,6 @@ function openReading(record, calculationDetails = null) {
   selectedReading = record;
   storageSet("aklr:lastSymbol", record.code);
 
-  document.querySelectorAll(".symbol-card.is-selected").forEach((card) => {
-    card.classList.remove("is-selected");
-  });
-
-  const selectedCard = document.querySelector(`.symbol-card[data-code="${record.code}"]`);
-  if (selectedCard) selectedCard.classList.add("is-selected");
-
   setText("[data-result-code]", record.code);
   setText("[data-result-symbol]", record.symbol_title_en);
   setText("[data-result-hanja]", record.hanja);
@@ -438,7 +463,7 @@ function openReading(record, calculationDetails = null) {
   setText("[data-reading-warning]", record.warning_en);
   setText("[data-reading-disclaimer]", record.disclaimer_en);
 
-  renderMonthlyReading(record);
+  renderMonthlyReading(record, calculationDetails?.targetYear || Number(targetYearInput.value) || new Date().getFullYear());
 
   document.querySelector("[data-reading-detail]").hidden = false;
   setCalculationDetails(calculationDetails);
@@ -449,73 +474,13 @@ function openReading(record, calculationDetails = null) {
   }, 120);
 }
 
-function matchesSearch(record, query) {
-  if (!query) return true;
-
-  const searchable = [
-    record.code,
-    record.hanja,
-    record.korean_reading,
-    record.symbol_title_en,
-    record.core_theme_en,
-    record.tags.join(" ")
-  ]
-    .join(" ")
-    .toLowerCase();
-
-  return searchable.includes(query.toLowerCase());
-}
-
-function renderSymbols(records) {
-  symbolGrid.innerHTML = "";
-  symbolCount.textContent = String(records.length);
-
-  if (!records.length) {
-    symbolGrid.innerHTML = '<p class="loading-message">No symbols match this search. Try a code, Hanja, Korean reading, English title, or tag.</p>';
-    return;
-  }
-
-  window.cancelAnimationFrame(renderBatchId);
-  let index = 0;
-  const batchSize = 24;
-
-  function renderBatch() {
-    const fragment = document.createDocumentFragment();
-    const limit = Math.min(index + batchSize, records.length);
-
-    for (; index < limit; index += 1) {
-      fragment.appendChild(createCard(records[index]));
-    }
-
-    symbolGrid.appendChild(fragment);
-    observeRevealItems(symbolGrid.querySelectorAll(".symbol-card:not(.is-observed)"));
-
-    if (index < records.length) {
-      renderBatchId = window.requestAnimationFrame(renderBatch);
-    }
-  }
-
-  renderBatch();
-}
-
-function filterSymbols() {
-  const query = symbolSearch.value.trim();
-  renderSymbols(tojeongData.filter((record) => matchesSearch(record, query)));
-}
-
-function debounceFilterSymbols() {
-  window.clearTimeout(searchDebounceId);
-  searchDebounceId = window.setTimeout(filterSymbols, 120);
-}
-
 async function loadTojeongData() {
   try {
     const response = await fetch("data/tojeong-gua.json");
     if (!response.ok) throw new Error("Unable to load Tojeong data.");
     tojeongData = await response.json();
-    renderSymbols(tojeongData);
   } catch (error) {
-    symbolGrid.innerHTML = '<p class="loading-message">The symbol database could not be loaded.</p>';
+    showMessage("The symbolic reading database could not be loaded.", "error");
   }
 }
 
@@ -592,22 +557,6 @@ premiumButton.addEventListener("click", () => {
   window.alert("Payment integration coming soon.");
 });
 
-symbolGrid.addEventListener("click", (event) => {
-  const card = event.target.closest(".symbol-card");
-  if (!card) return;
-  const record = tojeongData.find((item) => item.code === card.dataset.code);
-  if (record) openReading(record);
-});
-
-symbolGrid.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  const card = event.target.closest(".symbol-card");
-  if (!card) return;
-  event.preventDefault();
-  const record = tojeongData.find((item) => item.code === card.dataset.code);
-  if (record) openReading(record);
-});
-
 copyReadingButton.addEventListener("click", async () => {
   if (!selectedReading) {
     window.alert("Choose or calculate a symbol first.");
@@ -628,11 +577,10 @@ copyReadingButton.addEventListener("click", async () => {
 });
 
 tryAnotherButton.addEventListener("click", () => {
-  scrollToTarget("#symbols");
-  symbolSearch.focus({ preventScroll: true });
+  scrollToTarget("#reading-form");
+  birthYearInput.focus({ preventScroll: true });
 });
 
-symbolSearch.addEventListener("input", debounceFilterSymbols);
 calendarInputs.forEach((input) => input.addEventListener("change", updateDayLimit));
 [birthYearInput, birthMonthInput, birthDayInput, leapMonthInput].forEach((input) => {
   input.addEventListener("input", updateDayLimit);
